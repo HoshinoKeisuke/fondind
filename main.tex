@@ -1,0 +1,289 @@
+\documentclass[a4paper,dvipsnames, 11pt]{amsart} %pdf latex
+\usepackage{preamble}
+
+\begin{document}
+\maketitle
+\section{Preliminary}
+\begin{definition}
+	A \emph{Reedy category} $\dgm{A}$ consists of the following data:
+	\begin{itemize}
+		\item %
+			A small category $\dgm{A}$.
+		\item %
+			A strict factorisation system $(\dgm{A}_-,\dgm{A}_+)$.
+			We consider $\dgm{A}_-$ and $\dgm{A}_+$ as wide subcategories of $\dgm{A}$.
+		\item %
+			A function $d\colon\Obj\dgm{A}\arr\omega$
+			that extends to identity-reflecting functors
+			$d\colon\dgm{A}^\op_-\arr\omega$ and $d\colon\dgm{A}_+\arr\omega$,
+			where the set of natural numbers $\omega$ is seen as a linearly ordered set.
+		\qedhere %
+	\end{itemize}
+\end{definition}
+\begin{notation}
+	Let $\dgm{A}$ be a Reedy category and $X\in\Psh[\dgm{A}]$ be a presheaf.
+	We view the category $\dgm{A}$ as a full subcategory of $\Psh[\dgm{A}]$.
+	\begin{itemize}
+		\item %
+			We mean by $\arr[two heads]$ a morphism in $\dbl{A}_-$,
+			while by $\arr[tail]$, we mean a morphism in $\dbl{A}_+$.
+		\item %
+			A \emph{cell} is a morphism $a\arr X$ in $\Psh[\dgm{A}]$ whose domain $a$ is in $\dgm{A}$.
+		\item %
+			A cell $x\colon a\arr X$ is \emph{degenerate} if there is a factorisation $a\arr"\sigma"[two heads]b\arr"y"X$ of $x$
+			such that $\sigma$ is non-identity morphism in $\dgm{A}_-$.
+		\item %
+			For each cell $x\colon a\arr X$,
+			a \emph{face} of $x$ is a cell $y\colon b \arr X$ that factors as $b\arr"\iota"[tail]a\arr"x"X$ with $\iota$ in $\dgm{A}_+$,
+			while a \emph{degeneracy} of $x$ is a cell $y\colon b \arr X$ that factors as $b\arr"\sigma"[two heads]a\arr"x"X$ with $\sigma$ in $\dgm{A}_-$.
+		\qedhere %
+	\end{itemize}
+\end{notation}
+\begin{lemma}
+	\label{lem:existenceofNon-deg_factorisation}
+	Let $\dgm{A}$ be a Reedy category.
+	For each presheaf $X\in\Psh[\dgm{A}]$ and any cell $x\colon a\arr X$, there exits a factorisation
+	$a\arr"\sigma"[two heads]b\arr"y"X$ of $x$ such that $y$ is non-degenerate.
+\end{lemma}
+\begin{proof}
+	Consider the set of factorisations of $x$ by morphisms in $\dgm{A}_-$. This is not empty because $(\id_a, x)$ gives one such factorisation.
+	Therefore, there exists a factorisation $(\sigma,y)$ whose degree of the domain of $y$ is minimum among this set. It suffices to show $y$ is non-degenerate.
+	To this end, suppose $y$ factors as $z\circ\tau$ where $\tau$ is a morphism in $\dgm{A}_-$. Since $(\tau\circ\sigma,z)$ gives a factorisation of $x$,
+	the degree of the domain of $z$ is not less than that of $y$. Therefore, $\tau$ must be an identity because $d\colon\dgm{A}_-^\op\arr\omega$ reflects identity.
+\end{proof}
+\begin{proposition}
+	\label{prop:equivalenceElegant}
+	For a Reedy category $\dbl{A}$,
+	the following are equivalent.
+	\begin{enumerate}
+		\item %
+			\label{item:EZlemma}
+			For each presheaf $X\in\Psh[\dgm{A}]$,
+			any cell $x\colon a\arr X$
+			factors uniquely as $a\arr"\sigma"[two heads]b\arr"y"X$
+			where $\sigma$ is in $\dgm{A}_-$ and $y$ is non-degenerate.
+%		\item %
+%			\label{item:EZlemmaasTerminal}
+%			For each cell $x\colon a \arr X$ of any presheaf $X\in\Psh[\dgm{A}]$, the coslice category $x/(\dgm{A}_-/X)$ has a terminal object.
+		\item %
+			\label{item:strongpushout}
+			Any span in $\dgm{A}_-$ admits a pushout in $\dgm{A}$ that is preserved by the yoneda $\dgm{A}\arr[hook]\Psh[\dgm{A}]$.
+		\item %
+			\label{item:absolutepushout}
+			Any span in $\dgm{A}_-$ admits an absolute pushout in $\dgm{A}$.
+		\qedhere %
+	\end{enumerate}
+\end{proposition}
+\begin{proof}
+	The equivalence of \ref{item:strongpushout} and \ref{item:absolutepushout} follows from a folklore result:
+	a small colimit is absolute if and only if it is preserved by the cocompletion.
+%	\\\ 
+%	[\ref{item:EZlemmaasTerminal}$\Rightarrow$\ref{item:EZlemma}]
+%	Let $x\colon a\arr X$ be a cell.
+%	The existence of such factorisation is trivial: we can take the terminal object $(\sigma,y)$ of the coslice,
+%	and then $y$ is non-degenerate. For the uniqueness, take another factorisation $(\sigma',y')$ of $x$ such that $y'$ is non-degenerate.
+%	Since $(\sigma,y)$ is terminal, there is a morphism $\tau\colon(\sigma',y')\arr(\sigma,y)$ in the coslice category.
+%	In particular this factors $y'$ as $\cdot\arr"\tau"[two heads]\cdot\arr"y"X$,
+%	and hence $\tau$ is an identity.
+	\\\ 
+	[\ref{item:EZlemma}$\Rightarrow$\ref{item:strongpushout}]
+	Suppose \ref{item:EZlemma} and that we are given a span $b\arr"\sigma"[twoheadleftarrow]a\arr"\sigma'"[two heads]b'$ in $\dgm{A}_-$,
+	and take a pushout in $\Psh[\dgm{A}]$ as in the diagram below.
+	Since the yoneda embedding is fully faithful, it suffices to show the pushout is representable.
+	Let us factorise $x$ and $x'$ by \ref{item:EZlemma} as follows so that the cells $y$ and $y'$ are non-degenerate.
+	\[
+		\begin{tikzcd}[column sep=5mm,row sep=5mm]
+			a
+			\ar[dd,two heads,"\sigma"']
+			\ar[rr,two heads,"\sigma'"]
+			\doublecell[rrdd,"\ulcorner"near end]{}
+				&
+				{}
+					&
+					b'
+					\ar[dd,"x'"]
+					\ar[rd,two heads,"\tau'"]
+						&
+						{}
+			\\
+			{}
+				&
+				{}
+					&
+					{}
+						&
+						c'
+						\ar[ld,"y'"]
+			\\
+			b
+			\ar[rr,"x"']
+			\ar[rd,two heads,"\tau"']
+				&
+				{}
+					&
+					X
+						&
+						{}
+			\\
+			{}
+				&
+				c
+				\ar[ru,"y"']
+					&
+					{}
+						&
+						{}
+		\end{tikzcd}
+	\]
+	By the uniqueness of the factorisation of $x\circ\sigma$, we have $(\tau\circ\sigma,y)=(\tau'\circ\sigma',y')$.
+	By the universality of the pushout applying to the square $\tau\circ\sigma=\tau'\circ\sigma'$, we obtain a section $u$ of $y=y'$.
+	Therefore, we have a factorisation $(u\circ y,y)$ of $y$. Since $y$ is non-degenerate, through factorising $u\circ y$ by the factorisation system,
+	we conclude $u\circ y$ is an endo-morphism in $\dgm{A}_+$, which shows $u\circ y=\id_c$ and that $X$ is representable.
+	\\\ 
+	[\ref{item:strongpushout}$\Rightarrow$\ref{item:EZlemma}]
+	By \cref{lem:existenceofNon-deg_factorisation},
+	it suffices to show the uniqueness of such factorisation $(\sigma,y)$ for any cell $x$.
+	Suppose \ref{item:strongpushout} and that we are given a cell $x$ and its two factorisations $(\sigma,y)$ and $(\sigma',y')$ where $y$ and $y'$ are non-degenerate.
+	By taking the pushout of the span formed by $\sigma$ and $\sigma'$,
+	we obtain a square $\tau\circ\sigma=\tau'\circ\sigma'$ in $\dbl{A}$ and factorisations
+	$(\tau,z)$ and $(\tau',z')$ of $y$ and $y'$ respectively.
+	Since the left class of an orthogonal factorisation system must be closed under pushout, $\tau$ and $\tau'$ are in $\dbl{A}_-$.
+	Moreover, since $y$ and $y'$ are non-degenerate, $\tau$ and $\tau'$ are identities, and this shows $(\sigma,y)=(\sigma',y')$.
+\end{proof}
+\begin{definition}
+	A Reedy category is \emph{elegant} if the equivalent conditions in \cref{prop:equivalenceElegant} hold.
+\end{definition}
+\begin{proposition}
+	For an elegant Reedy category $\dgm{A}$, the left class $\dgm{A}_-$ coincides with the wide subcategory of split epimorphisms.
+\end{proposition}
+\begin{proof}
+\end{proof}
+\section{FONDIND}
+Let $\dgm{A}$ be a Reedy category.
+The following definition is after Yuki Maehara.
+\begin{definition}
+	A presheaf $X$ is \emph{fondind} if any face of a non-degenerate cell is non-degenerate: i.e.,
+	$X$ is fondind if
+	for each factorisation $b\arr"\iota"[tail]a\arr"x"X$ of a cell $y\colon b \arr X$ with $\iota$ in $\dgm{A}_+$,
+	the cell $y$ is non-degenerate whenever $x$ is as well.
+\end{definition}
+\begin{proposition}
+	The class of fondind presheaves is closed under limits and subobjects.
+\end{proposition}
+\begin{proof}
+	It suffices to show the class is closed under products and subobjects. \inred{straightforward}
+\end{proof}
+Note that for each presheaf $X$, the category of elements $\dgm{A}/X$ has as its objects cells of $X$.
+We write $\ndcat{X}$ for the full subcategory of $\dgm{A}/X$ consisting of all non-degenerate cells.
+\begin{lemma}
+	\label{lem:connectednondeg}
+	Let $X$ be a presheaf.
+	Consider the following commutative diagram in $\Psh[\dgm{A}]$.
+	\[
+		\begin{tikzcd}
+			\cdot
+			\ar[d,two heads,"\sigma'"']
+			\ar[r,two heads,"\sigma"]
+				&
+				{}
+				\ar[r,tail,"i"]
+					&
+					\cdot
+					\ar[dd,"x"]
+					\ar[ddll,"f"description]
+			\\
+			{}
+			\ar[d,tail,"i'"']
+				&
+				{}
+					&
+					{}
+			\\
+			\cdot
+			\ar[rr,"x'"']
+				&
+				{}
+					&
+					X
+		\end{tikzcd}
+	\]
+	Suppose that $x$ is non-degenerate.
+	Then we have $\sigma=\sigma'$ and $x\circ i=x' \circ i'$.
+\end{lemma}
+\begin{proof}
+	Considering the factorisation of the morphism $f$ in $\dgm{A}$, we can conclude $f$ is a morphism in $\dgm{A}_+$ since $x$ is non-degenerate.
+	Now since both $(\sigma',i')$ and $(\sigma,f\circ i)$ give the $(\dgm{A}_-,\dgm{A}_+)$-factorisation of the same morphism,
+	they coincide. This implies $\sigma=\sigma'$ and $x\circ i=x'\circ f\circ i'= x'\circ i'$.
+\end{proof}
+\begin{proposition}
+	\label{prop:ndaf_fondind}
+	A presheaf
+	$X\in\Psh[\dgm{A}]$ is fondind
+	if $\ndcat{X}$ is a final full subcategory of $\dgm{A}/X$.
+\end{proposition}
+\begin{proof}
+	Suppose $\ndcat{X}$ is a final full subcategory of $\dgm{A}/X$.
+	To show $X$ is fondind, take a factorisation $a\arr"i"[tail]b\arr"x"X$ of a cell $a\arr"y"X$ by a morphism $i$ in $\dgm{A}_+$
+	and a non-degenerate cell $x$.
+	We will show $y$ is non-degenerate.
+	To this end, consider another factorisation $a\arr"\sigma"[two heads]c\arr"z"X$ of $y$ obtained by \cref{lem:existenceofNon-deg_factorisation}.
+	Since $z$ is non-degenerate, it suffices to show $\sigma=\id$.
+	Since $\ndcat{X}$ is final in $\dgm{A}/X$, the comma category $y\downarrow \ndcat{X}$ is connected.
+	In particular, $(\sigma,z)$ and $(i,x)$ are connected by a zigzag in this comma category.
+	Now, iterated use of \cref{lem:connectednondeg} to this zigzag shows $\sigma=\id$.
+\end{proof}
+\begin{proposition}
+	The converse of \cref{prop:ndaf_fondind} is true when $\dgm{A}$ is elegant; i.e.,
+	if $\dgm{A}$ is elegant,
+	a presheaf $X$ is fondind if and only if $\ndcat{X}$ is final in $\dgm{A}/X$.
+\end{proposition}
+\begin{proof}
+	Suppose we are given a fondind presheaf $X$ and a cell $a\arr"x"X$.
+	It suffices to show the comma category $x\downarrow\ndcat{X}$ is connected. Since it is inhabited by \cref{lem:connectednondeg}, it suffices to show that
+	any two factorisations of $x$ by non-degenerate cells are connected in this category.
+	To this end, take two factorisations $a\arr"f"\arr"y"X$ and $a\arr"f'"\arr"y'"X$ of $x$
+	where $y$ and $y'$ are non-degenerate. Moreover, let us decompose $f$ and $f'$ by the factorisatiion system
+	as $f=i\circ\sigma$ and $f'=i'\circ\sigma'$.
+	Since $X$ is fondind, $y\circ i$ and $y'\circ i'$ are non-degenerate, and hence $(\sigma,y\circ i)$ and $(\sigma',y'\circ i')$ become objects of the comma category.
+	Moreover, since $\dgm{A}$ is elegant, those two factorisations coincide,
+	and now we have a span $(f,y)\arr"i"[leftarrow](\sigma,y\circ i)=(\sigma',y'\circ i')\arr"i'"(f',y')$ in $x\downarrow\ndcat{X}$.
+\end{proof}
+
+\printbibliography
+\end{document}
+\begin{theorem}
+	The following are equivalent.
+	\begin{enumerate}
+		\item %
+			\label{item:Aelegant}
+			$\dgm{A}$ is elegant.
+		\item %
+			\label{item:fondindCharacterisation}
+			For each $X\in\Psh[\dgm{A}]$,
+			$X$ is fondind if and only if $\ndcat{X}$ is a final full subcategory of $\dgm{A}/X$.
+	\end{enumerate}
+\end{theorem}
+\begin{proof}
+	\inred{ongoing}
+\end{proof}
+
+\begin{notation}
+	Let us write $\Ndaf[\dgm{A}]$ for the subcategory of $\Psh[\dgm{A}]$
+	consisting of all presheaves $X$ such that $\ndcat{X}$ is final in $\dgm{A}/X$,
+	and morphisms that preserves non-degenerate cells.
+\end{notation}
+\begin{proposition}
+	The inculusion $\Ndaf[\dgm{A}]\arr\Psh[\dgm{A}]$ has a right adjoint.
+\end{proposition}
+\begin{proof}
+	For each presheaf $X$,
+	we will show the colimit
+	\[
+		\overline{X}:=\colim\left(\ndcat{X}\arr[hook]\dgm{A}/X\arr"\dom"\dgm{A}\arr[hook]\Psh[\dgm{A}]\right)
+	\]
+	gives the cofree object of $X$.
+	By definition, there is a canonical morphism $\overline{Y}\arr"\varepsilon_Y"Y$ for each $Y\in\Psh[\dgm{A}]$,
+	and this becomes an isomorphism if $Y$ is in $\Ndaf[\dgm{A}]$.
+	Suppose we are given $X\in\Psh[\dgm{A}]$ and $Y\in\Ndaf[\dgm{A}]$.
+	It suffices to show that any morphism $Y\arr"f"X$ factors through $\varepsilon_X$ uniquely
+\end{proof}

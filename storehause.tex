@@ -1,0 +1,83 @@
+\begin{proposition}
+	For each polynomial $A$,
+	there are natural isomorphisms
+	$y\trleft A\cong A$
+	and
+	$A\trleft y\cong A$ in $\Poly$.
+\end{proposition}
+\begin{proposition}
+	\label{prop:EmbInducesMoncat}
+	Let $\one{V}$ be a category and $\one{W}=(\one{W},\otimes',I')$ be a monoidal category.
+	Consider a functor $\otimes\colon\one{V}\times\one{V}\arr\one{V}$ and an object $I\in\one{V}$.
+	Suppose that we are given a functor $F\colon\one{V}\arr\one{W}$
+	such that there are a family of isomorphisms $F(A\otimes B)\cong F(A)\otimes F(B)$ natural in $A,B\in\one{V}$
+	and an isomorphism $F(I)\cong I$.
+	If $F$ induces a fully faithful functor on the core groupoids,
+	then $(\one{V},\otimes,I)$ becomes a monoidal category and $F$ is a pseudo monoidal functor.
+\end{proposition}
+\begin{definition}
+	Define
+	$\Set\arr[hook]\Poly$
+	as a functor induced
+	from the 2-natural transformation
+	$\Delta(\one{1})\arr[Rightarrow]\left[-,\Set\right]^\op$
+	whose component at $S\in\Set^\op$ is the name for the terminal object in $\left[S,\Set\right]^\op$.
+	In other words, the fibration $\Poly\arr"{(-)_\ob}"\Set$ has the fibred terminal.
+	This functor is automatically fully faithful, and we regard sets as polynomials through this functor.
+\end{definition}
+\begin{lemma}
+	\label{lem:PolyMonoidalCaty}
+	There is a family of isomorphisms
+	$\rep(P\trleft Q)\cong\rep(P)\circ\rep(Q)$ natural in $P,Q\in\Poly$.
+	Moreover, we have $\rep(y)\cong\id_\Set$ in $\left[\Set,\Set\right]$.
+\end{lemma}
+\begin{proposition}
+	\label{prop:repIsEmb}
+	$\rep$ induces a fully faithful functor on the core groupoids.
+\end{proposition}
+\begin{proof}
+	Suppose we are given
+	$P,Q\in\Poly$,
+	an isomorphism $\alpha\colon\rep(P)\cong\rep(Q)$ in $\left[\Set,\Set\right]$,
+	and
+	$S\in\Set$.
+	We have the following commutative diagram:
+	\[
+		\begin{tikzcd}
+			\sum_{p\in P_\ob}[P_p,S]
+			\ar[r,"\cong"description,phantom]
+			\ar[d,""]
+				&
+				P\trleft S
+				\ar[r,"\alpha_S",weq']
+				\ar[d,"P\trleft!_S"']
+					&
+					Q\trleft S
+					\ar[d,"Q\trleft!_S"]
+					\ar[r,"\cong"description,phantom]
+						&
+						\sum_{q\in Q_\ob}[Q_q,S]
+						\ar[d,""]
+			\\
+			P_\ob
+			\ar[r,"\cong"description,phantom]
+				&
+				P\trleft 1
+				\ar[r,"\alpha_1"',weq]
+					&
+					Q\trleft 1
+					\ar[r,"\cong"description,phantom]
+						&
+						Q_\ob
+		\end{tikzcd}
+	\]
+	where the left and the right vertical arrows are projections. Therefore, we have $\left[P_p,S\right]\cong\left[Q_{\alpha_1(p)},S\right]$
+	for each $p\in P_\ob$ and $S\in\Set$.
+	By applying the yoneda lemma, we obtain $Q_{\alpha_1(p)}\cong P_p$ for each $p\in P_\ob$, which induces an isomophism $\bar\alpha\colon P\cong Q$ in $\Poly$.
+	One can readily check that $\bar\alpha$ is a unique isomorphism satisfying $\rep(\bar\alpha)=\alpha$.
+\end{proof}
+
+\begin{definition}
+	Define a functor $\rep\colon\Poly\arr\left[\Set,\Set\right]$
+	as the currying of the functor $\Poly\times\Set\arr"\trleft"\Set$ obtained in \Cref{lem:trleftRestSets}.
+\end{definition}
