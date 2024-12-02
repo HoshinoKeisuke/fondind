@@ -1,9 +1,27 @@
-\documentclass[a4paper,dvipsnames, 11pt]{amsart} %pdf latex
+\documentclass[a4paper,dvipsnames,dvipdfmx,11pt]{amsart} %pdf latex
 \usepackage{preamble}
 
 \begin{document}
 \maketitle
-\section{Preliminary}
+\section{導入}
+	Simplicial setの議論をするとき、ある一つのsimplicial setのsimplexたちを議論するのに人々はしばしばダイアグラムを使います。
+	このダイアグラムは正確にはsimplicial setのダイアグラムというよりはそのnon-degenerate cellたちからなるsemi-simplicial setのダイアグラムです。
+	それでもそのようなダイアグラムを用いた議論が有用であるという事実は、ある意味でsimplicial setはnon-degenerateなcellたちだけから構成されている、ということを示唆しています。
+	このことは、厳密には次の事実によって確かめられます:任意のsimplicial setはnon-degenerateなsimplexでindexされたboundary inclusionのcolimitで表示できる(skeletal filtration).
+
+	一方で、simplicial setの圏$\sSet$はpresheaf categoryなので、任意のsimplicial set $X$はsimplexのcolimitをつかって$X\cong\colim(\Simp/X\to\Simp\to\sSet)$とかけます。
+	ここでcategory of elements $\Simp/X$は$X$のcellのなす圏です(Yoneda lemma)。
+	上の観察から、「このcolimitは$\Simp/X$のnon-degenerate cellのなすfull subcategoryに制限できるか？」という問いが自然であることがわかるでしょう。
+	実はこれは一般には成立しません。
+	例えば、一つの$0$-simplexとその上のdegenerate 1-cellをboundaryにもつ一つの$2$-simplexからなるsimplicial set $X$を考えると
+	$\colim(\ndcat[\Simp]{X}\to\Simp/X\to\Simp\to\sSet)$はnon-degenerateな$1$-cellを持つことになり、もとの$X$と異なるものになります。
+
+	この記事では、このcolimitが$X$を復元するための十分条件である「non-degenerate cellたちが$\Simp/X$のfinal full subcategoryをなす」という条件が
+	fondind(Face Of Non-Degenerate Is Non-Degenerate)とここで呼ぶことにする条件と同値になることを、任意のelegant Reedy categoryに$\Simp$を一般化した上で示します。
+	このことはfondindなsimplicial setがある強い意味でnon-degenerateなcellたちだけからなっていることを意味します。
+	さらにこのクラスは(many-sorted) quasivarietyをなすことがわかります。
+\section{Preliminary (elegant Reedy category)}
+This section is mainly based on \cite[Section 3]{BR13}.
 \begin{definition}
 	A \emph{Reedy category} $\dgm{A}$ consists of the following data:
 	\begin{itemize}
@@ -153,11 +171,22 @@
 \begin{definition}
 	A Reedy category is \emph{elegant} if the equivalent conditions in \cref{prop:equivalenceElegant} hold.
 \end{definition}
-\begin{proposition}
-	For an elegant Reedy category $\dgm{A}$, the left class $\dgm{A}_-$ coincides with the wide subcategory of split epimorphisms.
-\end{proposition}
-\begin{proof}
-\end{proof}
+\begin{fact}[{\cite[Proposition 4.2]{BR13}}]
+	\label{EZReedy_is_elegant}
+	A Reedy category is elegant if the following condition holds:
+	\begin{itemize}
+		\item[(EZ)] %
+			Any morphism in $\dgm{A}_-$ is a split epi, and for any parallel morphisms
+			$f\colon a\arr[two heads]b$ and $g\colon a\arr[two heads]b$ in $\dgm{A}_-$,
+			$f=g$ holds if any morphism $b\arr a$ is a section of $f$ and $g$ simultaneously.
+		\qedhere
+	\end{itemize}
+\end{fact}
+\begin{example}
+	The category of simplices $\Simp$ is a Reedy category by the (surjection, injection)-factorisation system
+	and the ordinary degree function.
+	Moreover, this is elegant because $\Simp$ satisfies the condition in \cref{EZReedy_is_elegant}.
+\end{example}
 \section{FONDIND}
 Let $\dgm{A}$ be a Reedy category.
 The following definition is after Yuki Maehara.
@@ -171,8 +200,15 @@ The following definition is after Yuki Maehara.
 	The class of fondind presheaves is closed under limits and subobjects.
 \end{proposition}
 \begin{proof}
-	It suffices to show the class is closed under products and subobjects. \inred{straightforward}
+	A cell in a subobject of a simplicial set $X$ is non-degenerate if and only if it is non-degenerate in $X$.
+	On the other hand, a non-degenerate cell $\langle x_i\rangle_{i}\colon a \arr \prod_{i\in I}X_i$ is non-degenerate
+	if and only if $x_i$ is non-degenerate for each $i$.
+	Those observations immediately show that being fondind is closed under products and subobjects, which shows the proposition.
 \end{proof}
+\begin{remark}
+	The full subcategory of $\Psh[\dgm{A}]$ spanned by fondind objects is a quasivariety in the sense of \cite[16.12]{AHS90}.
+	This follows from the above proposition using \cite[Theorem 16.8 and Theorem 16.14]{AHS90}.
+\end{remark}
 Note that for each presheaf $X$, the category of elements $\dgm{A}/X$ has as its objects cells of $X$.
 We write $\ndcat{X}$ for the full subcategory of $\dgm{A}/X$ consisting of all non-degenerate cells.
 \begin{lemma}
