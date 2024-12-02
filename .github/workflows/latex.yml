@@ -24,7 +24,7 @@ jobs:
             main.tex
           args: >
             -pdfdvi -latex=uplatex -synctex=1
-            -e "\$dvipdf='dvipdfmx %O %S'; \$bibtex='bibtexu'; \$makeindex='upmendex';"
+            -e "\$dvipdf='dvipdfmx \%O \%S'; \$bibtex='bibtexu'; \$makeindex='upmendex';"
       - name: Push PDF file
         run: |
           git add --all
