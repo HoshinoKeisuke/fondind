@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Set up Git repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
       - name: Merge main branch
@@ -18,10 +18,11 @@ jobs:
           git checkout pdf
           git merge main
       - name: Compile LaTeX document
-        uses: xu-cheng/latex-action@v2
+        uses: xu-cheng/latex-action@v3
         with:
           root_file:
             main.tex
+          latexmk_use_uplatex: true
       - name: Push PDF file
         run: |
           git add --all
