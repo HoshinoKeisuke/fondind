@@ -22,11 +22,7 @@ jobs:
         with:
           root_file:
             main.tex
-          args: >
-            -pdfdvi
-            -latex=uplatex
-            -synctex=1
-            -e '$dvipdf="dvipdfmx %O %S"; $bibtex="bibtexu"; $makeindex="upmendex";'
+          latexmk_use_lualate: true
       - name: Push PDF file
         run: |
           git add --all
