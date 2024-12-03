@@ -179,7 +179,7 @@ This section is mainly based on \cite[Section 3]{BR13}.
 		\item[(EZ)] %
 			Any morphism in $\dgm{A}_-$ is a split epi, and for any parallel morphisms
 			$f\colon a\arr[two heads]b$ and $g\colon a\arr[two heads]b$ in $\dgm{A}_-$,
-			$f=g$ holds if any morphism $b\arr a$ is a section of $f$ and $g$ simultaneously.
+			$f=g$ holds when any morphism $\sigma\colon b\arr a$ is a section of $f$ if and only if it is a section of $g$.
 		\qedhere
 	\end{itemize}
 \end{fact}
@@ -188,6 +188,36 @@ This section is mainly based on \cite[Section 3]{BR13}.
 	and the ordinary degree function.
 	Moreover, this is elegant because $\Simp$ satisfies the condition in \cref{EZReedy_is_elegant}.
 \end{example}
+\begin{proposition}
+	\label{elegant_deg_splitepi}
+	If $\dgm{A}$ is an elegant Reedy category, morphisms in $\dgm{A}_-$ are split epimorphisms.
+\end{proposition}
+\begin{proof}
+	Given a moprhism $\sigma\colon a\arr b$ in $\dgm{A}_-$,
+	consider the cokernel pair
+	\[
+		\begin{tikzcd}
+			a
+			\ar[r,"\sigma"]
+			\ar[d,"\sigma"']
+				&
+				b
+				\ar[d,"\tau_2"]
+			\\
+			b
+			\ar[r,"\tau_1"']
+				&
+				c
+				\ar[ul,"\ulcorner"{very near start},phantom]
+		\end{tikzcd}
+	\]
+	in $\dgm{A}$. Since $\dgm{A}$ is elegant, this is also a cokernel pair in $\Psh[\dgm{A}]$.
+	It suffices to show $\tau_1=\tau_2=\id$, because this implies that $\sigma$ is a surjection between representable objects, which is a split epimorphism.
+	To this end, consider the canonical morphism $\gamma\colon c \arr b$ that satisfies $\gamma\circ\tau_i=\id_b$ ($i=1,2$).
+	Since $\dgm{A}_-$ is a left class of an orthogonal factorisatio system, it is closed under pushout and right cancellable.
+	This implies that both $\tau_i$ and $\gamma$ are in $\dgm{A}_-$, and since $d\colon\dgm{A}_-^\op\arr\omega$ reflects identities,
+	we have $\tau_i=\gamma=\id_b$.
+\end{proof}
 \section{FONDIND}
 Let $\dgm{A}$ be a Reedy category.
 The following definition is after Yuki Maehara.
@@ -197,19 +227,6 @@ The following definition is after Yuki Maehara.
 	for each factorisation $b\arr"\iota"[tail]a\arr"x"X$ of a cell $y\colon b \arr X$ with $\iota$ in $\dgm{A}_+$,
 	the cell $y$ is non-degenerate whenever $x$ is as well.
 \end{definition}
-\begin{proposition}
-	The class of fondind presheaves is closed under limits and subobjects.
-\end{proposition}
-\begin{proof}
-	A cell in a subobject of a simplicial set $X$ is non-degenerate if and only if it is non-degenerate in $X$.
-	On the other hand, a non-degenerate cell $\langle x_i\rangle_{i}\colon a \arr \prod_{i\in I}X_i$ is non-degenerate
-	if and only if $x_i$ is non-degenerate for each $i$.
-	Those observations immediately show that being fondind is closed under products and subobjects, which shows the proposition.
-\end{proof}
-\begin{remark}
-	The full subcategory of $\Psh[\dgm{A}]$ spanned by fondind objects is a quasivariety in the sense of \cite[16.12]{AHS90}.
-	This follows from the above proposition using \cite[Theorem 16.8 and Theorem 16.14]{AHS90}.
-\end{remark}
 Note that for each presheaf $X$, the category of elements $\dgm{A}/X$ has as its objects cells of $X$.
 We write $\ndcat{X}$ for the full subcategory of $\dgm{A}/X$ consisting of all non-degenerate cells.
 \begin{lemma}
@@ -285,6 +302,20 @@ We write $\ndcat{X}$ for the full subcategory of $\dgm{A}/X$ consisting of all n
 	Moreover, since $\dgm{A}$ is elegant, those two factorisations coincide,
 	and now we have a span $(f,y)\arr"i"[leftarrow](\sigma,y\circ i)=(\sigma',y'\circ i')\arr"i'"(f',y')$ in $x\downarrow\ndcat{X}$.
 \end{proof}
+\begin{proposition}
+	If $\dgm{A}$ is elegant, the class of fondind presheaves is closed under limits and subobjects.
+\end{proposition}
+\begin{proof}
+	A cell in a subobject of a simplicial set $X$ is non-degenerate if and only if it is non-degenerate in $X$.
+	This is because split epimorphisms are weakly left orthogonal to monomorphisms in $\Psh[\dgm{A}]$.
+	On the other hand, a non-degenerate cell $\langle x_i\rangle_{i}\colon a \arr \prod_{i\in I}X_i$ is non-degenerate
+	if and only if $x_i$ is non-degenerate for each $i$.
+	Those observations immediately show that being fondind is closed under products and subobjects, which shows the proposition.
+\end{proof}
+\begin{remark}
+	The full subcategory of $\Psh[\dgm{A}]$ spanned by fondind objects is a quasivariety in the sense of \cite[16.12]{AHS90}.
+	This follows from the above proposition using \cite[Theorem 16.8 and Theorem 16.14]{AHS90}.
+\end{remark}
 
 \printbibliography
 \end{document}
